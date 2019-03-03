@@ -5,7 +5,7 @@ var app = require('./app');
 
 //conexion database
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost:27017/ControlTienda', { useNewUrlParser: true })
+mongoose.connect('mongodb://localhost:27017/ControlVentas', { useNewUrlParser: true })
     .then(() => {
         console.log("la coneccion a la base de datos ControlTienda se ha realizado correctamente")
 
