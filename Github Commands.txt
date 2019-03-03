@@ -1,0 +1,21 @@
+git init "nombre" // es para iniciar un repo
+git clone "urlDelRepo" // es para clonar un repositorio de algun servidor
+git status // para ver el estado del repo, te muestra informacion como los arhivos no registrados
+git add * // añade todos los archivos no registrados
+git add "carpeta/archivo.cs" // añade un archivo en especifico, por ejemplo Items/ChocolateBar.cs -- tenes que indicar si esta en una carpeta y el nombre exacto del archivo xd
+git commit -m "MENSAJE" // registra el archivo por completo, permite a git saber todos los cambios que ocurren a el y te permite mandarlo al servidor de Git
+git push // manda todos los cambios a los servidores donde esta almacenado el repo, en este caso es Github
+git pull // este comando sincroniza lo que vos tenes local, con el repo actualizado
+
+INSTRUCCIONES PARA SINCRONIZAR, COMMIT Y SUBIR
+git stash // guarda los cambios que hiciste
+git pull // para sincronizar
+git stash pop // para añadir tus cambios al nuevo pull
+git commit -a -m "MENSAJE" // el -a añade los cambios, asi te ahorras el git add *, solo si queres añadir todo, sino te toca git add y luego git commit por separado
+
+touch .gitignore //crea el .gitignore
+
+SINCRONIZAR 
+git remote add origin https://github.com/Krowser1809/proyectoFinal.git
+git push -u origin master
+
