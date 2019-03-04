@@ -9,7 +9,7 @@ function editUser(req, res) {
     var userId = req.params.id;
 
     if (req.user.rol == 'admin') {
-        delete bodyInfo.password;
+        /*delete bodyInfo.password;
 
         User.findByIdAndUpdate(userId, bodyInfo, { new: true }, (err, userActualizado) => {
             if (err) return res.status(500).send({ message: 'error en la peticion' })
@@ -17,7 +17,9 @@ function editUser(req, res) {
             //if (!userActualizado) return res.status(404).send({ message: 'no se ha podido editar los datos del usuario' })
 
             return res.status(200).send({ user: userActualizado });
-        })
+        })*/
+
+        return res.status(500).send({ message: 'no se puede editar un administrador' })
 
     } else {
         delete bodyInfo.password;
@@ -46,7 +48,8 @@ function createUser(req, res) {
             user.lastName = bodyInfo.lastName;
             user.email = bodyInfo.email;
             user.password = bodyInfo.password;
-            user.rol = 'cliente'
+            //user.rol = 'cliente'
+            user.rol = bodyInfo.rol
 
             //controlar duplicados
 
@@ -126,7 +129,7 @@ function deleteUser(req, res) {
     var userId = req.params.id;
 
     if (req.user.rol == 'admin') {
-        if (userId != req.user.sub) {
+        /*if (userId != req.user.sub) {
             User.findByIdAndDelete(userId, (err, usuarioBorrado) => {
                 if (err) return res.status(404).send({ message: 'error en la peticion' })
                 if (!usuarioBorrado) return res.status(500).send({ message: 'no se ha podido borrar usuario' })
@@ -134,7 +137,8 @@ function deleteUser(req, res) {
             })
         } else {
             res.status(500).send({ message: 'No se puede eliminar a uno mismo' });
-        }
+        }*/
+        return res.status(500).send({ message: 'no se pueden eliminar administradores' });
     } else {
         User.findByIdAndDelete(req.user.id, (err, usuarioBorrado) => {
             if (err) return res.status(404).send({ message: 'error en la peticion' })

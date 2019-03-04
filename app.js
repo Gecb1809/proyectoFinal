@@ -9,6 +9,7 @@ var app = express();
 
 var user_routes = require('./src/routes/user');
 var product_routes = require('./src/routes/product');
+var category_routes = require('./src/routes/category');
 
 //middleware
 
@@ -20,6 +21,7 @@ app.use(bodyParser.json());
 // rutas
 app.use('/api', user_routes);
 app.use('/api', product_routes);
+app.use('/api', category_routes);
 
 //exportar
 module.exports = app;
