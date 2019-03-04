@@ -7,14 +7,14 @@ var Category = require('../models/category');
 function createProduct (req, res){
     var bodyInfo = req.body;
     var product = new Product();
-    var verificarCategoria = boolean;
+    var verificarCategoria = false;
     if (req.user.rol == 'admin'){
         Category.find({ name: bodyInfo.category }, (err, dato) => {
             if (err) return res.status(404).send({ message: 'error al verificar la categoria' });
-
-            if (dato && dato.length >= 1) return verificarCategoria = true;
+            if (dato && dato.length >= 1){ verificarCategoria = true; }
         });
-        if (verificarCategoria == true){
+
+        if (verificarCategoria = true){
             if (bodyInfo.name && bodyInfo.stock){
                 product.name = bodyInfo.name;
                 product.category = bodyInfo.category;
@@ -49,11 +49,11 @@ function createProduct (req, res){
     }
 }
 
-function editProcuct(req, res){
+function editProduct(req, res){
     var bodyInfo = req.body;
     var product = new Product();
     if (req.user.rol == 'admin') {
-        Product.findByIdAndUpdate(bodyInfo.id, (err, productUpdated) => {
+        Product.findByIdAndUpdate(req.params.id, bodyInfo, (err, productUpdated) => {
             if (err) return res.status(404).send({ message: 'se ha producido un error al editar producto' });
 
             if (productUpdated) return res.status(200).send({ product: productUpdated });
@@ -66,7 +66,7 @@ function editProcuct(req, res){
 function deleteProduct(req, res){
     var bodyInfo = req.body;
     if (req.user.rol == 'admin'){
-        Product.findByIdAndDelete( bodyInfo.id, (err, productRemoved) => {
+        Product.findByIdAndDelete( req.params.id, (err, productRemoved) => {
             if (err) return res.status(404).send({ message: 'error al borrar producto' })
 
             if (productRemoved) return res.status(200).send({ message: 'Se ha eliminado el producto satisfactoriamente' })
@@ -109,7 +109,7 @@ function findProductByCategory(req, res) {
 
 module.exports = {
     createProduct,
-    editProcuct,
+    editProduct,
     deleteProduct,
     readProducts,
     readProduct,

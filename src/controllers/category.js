@@ -1,6 +1,7 @@
 'use strict'
 
 var Category = require('../models/category');
+var Product = require('../models/product');
 
 function createCategory(req, res){
     var bodyInfo = req.body;
@@ -37,8 +38,23 @@ function deleteCategory(req, res){
     var bodyInfo = req.body;
 
     if (req.user.rol == 'admin'){
-        Category.findByIdAndDelete((err, categoryDeleted) => {
-            if (err) return res.status(404).send({ message: 'error al borrar categorias' });
+        /*Category.findById(req.params.id, (err, dato) => {
+            if (err) return res.status(404).send({ message: 'error al borrar categoria 1' })
+
+            if (dato) {
+                Product.find({ category: dato.name }, (err, datos) => {
+                    if (err) return res.status(404).send({ message: 'error al buscar productos en delete categoria' });
+
+                    if (datos) {
+                        Product.findByIdAndUpdate(datos.sub, category = 'Undefined', (err, productoactualizado) => {
+                            if (err) return res.status(404).send({ message: 'error al alterar producto' });
+                        })
+                    }
+                })
+            }
+        })*/
+        Category.findByIdAndDelete(req.params.id, (err, categoryDeleted) => {
+            if (err) return res.status(404).send({ message: 'error al borrar categorias 2' });
 
             if (categoryDeleted) return res.status(200).send({ message:  'La categoria se ha eliminado exitosamente' })
         })
@@ -53,7 +69,7 @@ function editCategory(req, res){
 
     if (req.user.rol == 'admin'){
         if (bodyInfo.name && bodyInfo.idCategoriaACambiar){
-            Category.findByIdAndUpdate(bodyInfo.idCategoriaACambiar, (err, categoryUpdated) => {
+            Category.findByIdAndUpdate(req.params.id, bodyInfo, (err, categoryUpdated) => {
                 if (err) return res.status(404).send({ message: 'error al editar categoria' });
 
                 if (categoryUpdated) return res.status(200).send({ category: categoryUpdated });
@@ -89,7 +105,7 @@ function readCategory(req, res){
 
         if (categoryReaded) return res.status(200).send({ categoryReaded })
     });*/
-    
+
 }
 
 

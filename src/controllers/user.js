@@ -8,7 +8,7 @@ function editUser(req, res) {
     var bodyInfo = req.body;
     var userId = req.params.id;
 
-    if (req.user.rol == 'admin') {
+    if (req.params.id == 'admin') {
         /*delete bodyInfo.password;
 
         User.findByIdAndUpdate(userId, bodyInfo, { new: true }, (err, userActualizado) => {
@@ -19,12 +19,12 @@ function editUser(req, res) {
             return res.status(200).send({ user: userActualizado });
         })*/
 
-        return res.status(500).send({ message: 'no se puede editar un administrador' })
+        return res.status(500).send({ message: 'no se puede editar a un administrador' })
 
     } else {
         delete bodyInfo.password;
 
-        User.findByIdAndUpdate(req.user.id, bodyInfo, { new: true }, (err, userActualizado) => {
+        User.findByIdAndUpdate(req.params.id, bodyInfo, { new: true }, (err, userActualizado) => {
             if (err) return res.status(500).send({ message: 'error en la peticion' })
 
             //if (!userActualizado) return res.status(404).send({ message: 'no se ha podido editar los datos del usuario' })
